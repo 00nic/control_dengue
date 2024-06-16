@@ -8,16 +8,21 @@
 </head>
 <body>
     <div>
-        <form action="" >
+        <form action="/add_sick" method="post" >
             <table>
+                
                 <tr><td><input type="text" placeholder="Nombre" name="nombre"></td></tr>
                 <tr><td><input type="text" placeholder="Apellido" name="apellido"></td></tr>
                 <tr><td><input type="text" placeholder="DNI" name="dni"></td></tr>
-                <tr><td><input type="text" placeholder="Provincia" name="provincia"></td></tr>
-                <tr><td><input type="text" placeholder="Departamento" name="Departamento"></td></tr>
+                
+                <tr><td><input type="text" placeholder="Provincia" name="provincia"></td>
+                <td><input type="text" placeholder="Departamento" name="departamento"></td></tr>
+                
                 <tr><td><input type="text" placeholder="Barrio" name="barrio"></td></tr>
+                
                 <tr><td><input type="text" placeholder="Calle" name="calle"></td>
-                <td><input type="text" placeholder="n°" name="numero"></td></tr>
+                <td><input type="int" placeholder="N°" name="numeracion"></td></tr>
+                <tr><td><input type="text" placeholder="Tipo de caso" name="caso"></td></tr>
             </table>
             <button type="submit"> añadir</button>
         </form>
