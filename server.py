@@ -17,6 +17,15 @@ myslq = MySQL(app)
 def view_add_sick():
     return render_template ('add_sick.html')
 
+@app.route('/view_sicks')
+def view_sicks():
+    cur = myslq.connection.cursor()
+    cur.execute('SELECT * FROM enfermos')
+    data = cur.fetchall()
+    print(data)
+    return '(enfermos=data)'
+
+
 @app.route('/add_sick', methods=['POST'])
 def add_sick():
     if request.method == 'POST':
