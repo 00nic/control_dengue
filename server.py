@@ -47,6 +47,10 @@ def add_sick():
         myslq.connection.commit()
     return 'enfermo cargado'
 
+@app.route('/graph')
+def view_graph():
+    return render_template('graph.html')
+
 
 
 
