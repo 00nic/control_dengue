@@ -51,6 +51,25 @@ def add_sick():
 def view_graph():
     return render_template('graph.html')
 
+@app.route("/registro")
+def register():
+    return render_template("register.html") 
+
+@app.route("/add_contact",methods= ["GET", "POST"])
+def add_contact():
+    if request.method =="POST":
+        nombre= request.form["nombre"]
+        apellido= request.form["apellido"]
+        dni= request.form["dni"]
+        contraseña= request.form["contraseña"]
+        email= request.form["email"]
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contraseña ,email)VALUES(%s,%s,%s,%s,%s)",
+        (nombre, apellido, dni, contraseña, email))
+        mysql.connection.commit()
+    return redirect(url_for("register"))
+
 
 
 
