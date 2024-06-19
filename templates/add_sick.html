@@ -11,18 +11,18 @@
         <form action="/add_sick" method="post" >
             <table>
                 
-                <tr><td><input type="text" placeholder="Nombre" name="nombre"></td></tr>
-                <tr><td><input type="text" placeholder="Apellido" name="apellido"></td></tr>
-                <tr><td><input type="text" placeholder="DNI" name="dni"></td></tr>
+                <tr><td><input type="text" placeholder="Nombre" name="nombre" required></td></tr>
+                <tr><td><input type="text" placeholder="Apellido" name="apellido" required></td></tr>
+                <tr><td><input type="text" placeholder="DNI" name="dni" required></td></tr>
                 
-                <tr><td><input type="text" placeholder="Provincia" name="provincia"></td>
-                <td><input type="text" placeholder="Departamento" name="departamento"></td></tr>
+                <tr><td><input type="text" placeholder="Provincia" name="provincia" required></td>
+                <td><input type="text" placeholder="Departamento" name="departamento" required></td></tr>
                 
-                <tr><td><input type="text" placeholder="Barrio" name="barrio"></td></tr>
+                <tr><td><input type="text" placeholder="Barrio" name="barrio" required></td></tr>
                 
-                <tr><td><input type="text" placeholder="Calle" name="calle"></td>
-                <td><input type="int" placeholder="N°" name="numeracion"></td></tr>
-                <tr><td><input type="text" placeholder="Tipo de caso" name="caso"></td></tr>
+                <tr><td><input type="text" placeholder="Calle" name="calle" required></td>
+                <td><input type="int" placeholder="N°" name="numeracion" required></td></tr>
+                <tr><td><input type="text" placeholder="Tipo de caso" name="caso" required></td></tr>
             </table>
             <button type="submit"> añadir</button>
         </form>
