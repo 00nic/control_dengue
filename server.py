@@ -22,8 +22,8 @@ def view_sicks():
     cur = myslq.connection.cursor()
     cur.execute('SELECT * FROM enfermos')
     data = cur.fetchall()
-    print(data)
-    return '(enfermos=data)'
+    cur.close()
+    return render_template('list_sicks.html', enfermos= data)
 
 
 @app.route('/add_sick', methods=['POST'])

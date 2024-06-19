@@ -8,6 +8,47 @@
 
 </head>
 <body>
+    <h1>Lista de clientes</h1>
+    <div>
+        <a href="/">Agregar Pacientes</a>
+        <a href="/graph">Ver Grafíco</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Provincia</th>
+                    <th>Departamento</th>
+                    <th>Barrio</th>
+                    <th>Calle</th>
+                    <th>Caso</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enfermo in enfermos %}
+                <tr>
+                    <td>{{ enfermo.nombre }}</td>
+                    <td>{{ enfermo.apellido }}</td>
+                    <td>{{ enfermo.dni }}</td>
+                    <td>{{ enfermo.provincia }}</td>
+                    <td>{{ enfermo.departamento }}</td>
+                    <td>{{ enfermo.barrio }}</td>
+                    <td>{{ enfermo.calle }} {{ enfermo.numeracion}}</td>
+                    <td>{{ enfermo.caso }}</td>
+                    <td>
+                        <a href="/edit/{{ enfermo.0 }}">Editar</a>
+                        <a href="/delete/{{ enfermo.0 }}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     
 </body>
 </html>
