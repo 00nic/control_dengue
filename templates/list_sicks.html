@@ -30,19 +30,19 @@
                 </tr>
             </thead>
             <tbody>
-                {% for enfermo in enfermos %}
+                {% for paciente in pacientes %}
                 <tr>
-                    <td>{{ enfermo.nombre }}</td>
-                    <td>{{ enfermo.apellido }}</td>
-                    <td>{{ enfermo.dni }}</td>
-                    <td>{{ enfermo.provincia }}</td>
-                    <td>{{ enfermo.departamento }}</td>
-                    <td>{{ enfermo.barrio }}</td>
-                    <td>{{ enfermo.calle }} {{ enfermo.numeracion}}</td>
-                    <td>{{ enfermo.caso }}</td>
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{{ paciente.apellido }}</td>
+                    <td>{{ paciente.dni }}</td>
+                    <td>{{ paciente.provincia }}</td>
+                    <td>{{ paciente.departamento }}</td>
+                    <td>{{ paciente.barrio }}</td>
+                    <td>{{ paciente.calle }} {{ paciente.numeracion}}</td>
+                    <td>{{ paciente.caso }}</td>
                     <td>
-                        <a href="/edit/{{ enfermo.0 }}">Editar</a>
-                        <a href="/delete/{{ enfermo.0 }}">Eliminar</a>
+                        <a href="/editarDatos/{{ paciente.indice }}">Editar</a>
+                        <a href="/eliminarPaciente/{{ paciente.indice }}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
