@@ -1,0 +1,51 @@
+{% block body %}
+<div>
+    <form action="/actualizarDatos/{{datos.indice}}" method="POST">
+        <div>
+            <label>Nombre:</label>
+            <input type="text" name="nombre" value="{{datos.nombre}}">
+        </div>
+        <div>
+            <label>Apellido:</label>
+            <input type="text" name="apellido" value="{{datos.apellido}}">
+        </div>
+        <div>
+            <label>DNI:</label>
+            <input type="text" name="dni" value="{{datos.dni}}">
+        </div>
+        <div>
+            <label>Provincia:</label>
+            <input type="text" name="provincia" value="{{datos.provincia}}">
+        </div>
+        <div>
+            <label>Departamento:</label>
+            <input type="text" name="departamento" value="{{datos.departamento}}">
+        </div>
+        <div>
+            <label>Barrio:</label>
+            <input type="text" name="barrio" value="{{datos.barrio}}">
+        </div>
+        <div>
+            <label>Calle:</label>
+            <input type="text" name="calle" value="{{datos.calle}}">
+        </div>
+        <div>
+            <label>Numeración:</label>
+            <input type="text" name="numeracion" value="{{datos.numeracion}}">
+        </div>
+        <div>
+            <label>Grupo:</label>
+            <select name="caso">
+              <option value="A" {% if datos.caso == 'A' %}selected{% endif %}>A</option>
+              <option value="B" {% if datos.caso == 'B' %}selected{% endif %}>B</option>
+              <option value="C" {% if datos.caso == 'C' %}selected{% endif %}>C</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Actualizar</button>
+            <a href="/view_sicks">Volver</a>
+        </div> 
+    </form>
+</div>
+
+{% endblock %}
