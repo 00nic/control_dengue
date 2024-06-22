@@ -51,6 +51,13 @@ def actualizarLista(indice):
                      calle, numeracion, caso, indice))
         myslq.connection.commit()
         return redirect (url_for('view_sicks'))
+    
+@app.route('/eliminarPaciente/<indice>')
+def eliminarPaciente(indice):
+    cur= myslq.connection.cursor()
+    cur.execute('DELETE FROM enfermos WHERE indice = %s', (indice,))
+    myslq.connection.commit()
+    return redirect(url_for('view_sicks'))
 
 @app.route('/add_sick', methods=['POST'])
 def add_sick():
@@ -71,7 +78,7 @@ def add_sick():
         (nombre,apellido,dni,provincia,departamento	,barrio,calle,numeracion,caso))
         
         myslq.connection.commit()
-    return 'enfermo cargado'
+        return redirect(url_for(view_sicks))
 
 @app.route('/graph')
 def view_graph():
@@ -90,10 +97,10 @@ def add_contact():
         contraseña= request.form["contraseña"]
         email= request.form["email"]
 
-        cur = mysql.connection.cursor()
+        cur = myslq.connection.cursor()
         cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contraseña ,email)VALUES(%s,%s,%s,%s,%s)",
         (nombre, apellido, dni, contraseña, email))
-        mysql.connection.commit()
+        myslq.connection.commit()
     return redirect(url_for("register"))
 
 
