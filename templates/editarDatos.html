@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Datos</title>
+</head>
+<body>
+    <div>
+        <form action="/actualizarDatos/{{datos.0}}" method="POST">
+            <div>
+                <label>Nombre:</label>
+                <input type="text" name="nombre" value="{{datos.1}}">
+            </div>
+            <div>
+                <label>Apellido:</label>
+                <input type="text" name="apellido" value="{{datos.2}}">
+            </div>
+            <div>
+                <label>DNI:</label>
+                <input type="text" name="dni" value="{{datos.3}}">
+            </div>
+            <div>
+                <label>Provincia:</label>
+                <input type="text" name="provincia" value="{{datos.4}}">
+            </div>
+            <div>
+                <label>Departamento:</label>
+                <input type="text" name="departamento" value="{{datos.5}}">
+            </div>
+            <div>
+                <label>Barrio:</label>
+                <input type="text" name="barrio" value="{{datos.6}}">
+            </div>
+            <div>
+                <label>Calle:</label>
+                <input type="text" name="calle" value="{{datos.7}}">
+            </div>
+            <div>
+                <label>Numeración:</label>
+                <input type="text" name="numeracion" value="{{datos.8}}">
+            </div>
+            <div>
+                <label>Grupo:</label>
+                <select name="caso">
+                  <option value="A" {% if datos.9 == 'A' %}selected{% endif %}>A</option>
+                  <option value="B" {% if datos.9 == 'B' %}selected{% endif %}>B</option>
+                  <option value="C" {% if datos.9 == 'C' %}selected{% endif %}>C</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Actualizar</button>
+                <a href="/view_sicks">Volver</a>
+            </div> 
+        </form>
+    </div>
+    
+</body>
+</html>

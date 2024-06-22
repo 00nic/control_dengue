@@ -22,9 +22,42 @@ def view_sicks():
     cur = myslq.connection.cursor()
     cur.execute('SELECT * FROM enfermos')
     data = cur.fetchall()
-    cur.close()
-    return render_template('list_sicks.html', enfermos= data)
+    return render_template('list_sicks.html', pacientes = data)
 
+@app.route('/editarDatos/<indice>')
+def editarDatos(indice):
+    cur= myslq.connection.cursor()
+    cur.execute('SELECT * FROM enfermos WHERE indice = %s', (indice,))
+    data= cur.fetchall()
+    cur.close()
+    return render_template('editarDatos.html', datos = data[0])
+
+@app.route('/actualizarDatos/<indice>', methods=['POST'])
+def actualizarLista(indice):
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        apellido = request.form['apellido']
+        dni = request.form['dni']
+        provincia = request.form['provincia']
+        departamento = request.form['departamento']
+        barrio = request.form['barrio']
+        calle = request.form['calle']
+        numeracion = request.form['numeracion']
+        caso = request.form['caso']
+        cur= myslq.connection.cursor()
+        cur.execute('''UPDATE enfermos SET nombre = %s, apellido= %s, dni= %s, provincia= %s,
+                    departamento= %s, barrio= %s, calle= %s, numeracion= %s, caso= %s WHERE indice= %s''', 
+                    (nombre, apellido, dni, provincia, departamento, barrio, 
+                     calle, numeracion, caso, indice))
+        myslq.connection.commit()
+        return redirect (url_for('view_sicks'))
+    
+@app.route('/eliminarPaciente/<indice>')
+def eliminarPaciente(indice):
+    cur= myslq.connection.cursor()
+    cur.execute('DELETE FROM enfermos WHERE indice = %s', (indice,))
+    myslq.connection.commit()
+    return redirect(url_for('view_sicks'))
 
 @app.route('/add_sick', methods=['POST'])
 def add_sick():
@@ -45,7 +78,7 @@ def add_sick():
         (nombre,apellido,dni,provincia,departamento	,barrio,calle,numeracion,caso))
         
         myslq.connection.commit()
-    return 'enfermo cargado'
+        return redirect(url_for(view_sicks))
 
 @app.route('/graph')
 def view_graph():
@@ -64,10 +97,10 @@ def add_contact():
         contraseña= request.form["contraseña"]
         email= request.form["email"]
 
-        cur = mysql.connection.cursor()
+        cur = myslq.connection.cursor()
         cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contraseña ,email)VALUES(%s,%s,%s,%s,%s)",
         (nombre, apellido, dni, contraseña, email))
-        mysql.connection.commit()
+        myslq.connection.commit()
     return redirect(url_for("register"))
 
 
