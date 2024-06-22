@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista enfermos</title>
+    <title>Lista Pacientes</title>
     <link rel="stylesheet_login" href="../static/css/stylesheet_list_sicks.css">
 
 </head>
@@ -32,17 +32,17 @@
             <tbody>
                 {% for paciente in pacientes %}
                 <tr>
-                    <td>{{ paciente.nombre }}</td>
-                    <td>{{ paciente.apellido }}</td>
-                    <td>{{ paciente.dni }}</td>
-                    <td>{{ paciente.provincia }}</td>
-                    <td>{{ paciente.departamento }}</td>
-                    <td>{{ paciente.barrio }}</td>
-                    <td>{{ paciente.calle }} {{ paciente.numeracion}}</td>
-                    <td>{{ paciente.caso }}</td>
+                    <td>{{ paciente.1 }}</td>
+                    <td>{{ paciente.2 }}</td>
+                    <td>{{ paciente.3 }}</td>
+                    <td>{{ paciente.4 }}</td>
+                    <td>{{ paciente.5 }}</td>
+                    <td>{{ paciente.6 }}</td>
+                    <td>{{ paciente.7 }} {{ paciente.8}}</td>
+                    <td>{{ paciente.9 }}</td>
                     <td>
-                        <a href="/editarDatos/{{ paciente.indice }}">Editar</a>
-                        <a href="/eliminarPaciente/{{ paciente.indice }}">Eliminar</a>
+                        <a href="/editarDatos/{{ paciente.0 }}">Editar</a>
+                        <a href="/eliminarPaciente/{{ paciente.0 }}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
