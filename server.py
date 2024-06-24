@@ -16,11 +16,11 @@ myslq = MySQL(app)
 
 #VISTAS
 
-# @app.route('/')
-# def view_add_sick():
-#     return render_template ('index.html')
-
 @app.route('/')
+def inicio():
+    return render_template ('index.html')
+
+@app.route('/view_add_sick')
 def view_add_sick():
     return render_template ('add_sick.html')
 
