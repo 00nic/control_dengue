@@ -14,6 +14,9 @@
         <h2 class="graph">Esto es un Grafico</h2>
         <canvas id="myChart"></canvas>
     </div>
+    <script type="application/json" id="labels">{{labels | tojson}}</script>
+    <script type="application/json" id="values">{{values | tojson}}</script>
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
     
