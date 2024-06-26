@@ -2,9 +2,11 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 import os
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 
 app = Flask (__name__, static_url_path='/static ')
 load_dotenv()
+
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
@@ -78,7 +80,7 @@ def add_sick():
         (nombre,apellido,dni,provincia,departamento	,barrio,calle,numeracion,caso))
         
         myslq.connection.commit()
-        return redirect(url_for(view_sicks))
+        return redirect(url_for('view_sicks'))
 
 @app.route('/graph')
 def view_graph():
