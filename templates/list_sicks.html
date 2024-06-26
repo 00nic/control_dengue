@@ -14,8 +14,8 @@
 <body>
     <h1>Lista de clientes</h1>
     <div>
-        <a href="/">Agregar Pacientes</a>
-        <a href="/graph">Ver Grafíco</a>
+        <a href="/add_sick">Agregar Pacientes</a>
+        <a href="/grafico">Ver Grafíco</a>
         <a href="/logout">Logout</a>
     </div>
     <div>
@@ -45,8 +45,8 @@
                     <td>{{ paciente['calle'] }} {{ paciente['numeracion']}}</td>
                     <td>{{ paciente['caso'] }}</td>
                     <td>
-                        <a href="/editarDatos/{{ paciente.0 }}">Editar</a>
-                        <a href="/eliminarPaciente/{{ paciente.0 }}">Eliminar</a>
+                        <a href="/editarDatos/{{ paciente['indice']}}">Editar</a>
+                        <a href="/eliminarPaciente/{{ paciente['indice']}}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}

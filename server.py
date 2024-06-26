@@ -12,10 +12,9 @@ app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 
-myslq = MySQL(app)
+mysql= MySQL(app)
 
-#VISTAS
-
+#----VISTAS----#
 @app.route('/')
 def inicio():
     return render_template ('index.html')
@@ -26,16 +25,11 @@ def view_add_sick():
 
 @app.route('/view_sicks')
 def view_sicks():
-    cur = myslq.connection.cursor()
+    cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM enfermos')
     data = cur.fetchall()
     print(data)
     return render_template('list_sicks.html', pacientes = data)
-
-# @app.route('/graph')
-# def view_graph():
-    
-#     return render_template('graph.html')
 
 @app.route("/registro")
 def register():
@@ -45,7 +39,7 @@ def register():
 #----Actualizar datos de paciente----#
 @app.route('/editarDatos/<indice>')
 def editarDatos(indice):
-    cur= myslq.connection.cursor()
+    cur= mysql.connection.cursor()
     cur.execute('SELECT * FROM enfermos WHERE indice = %s', (indice,))
     data= cur.fetchall()
     cur.close()
@@ -63,22 +57,23 @@ def actualizarLista(indice):
         calle = request.form['calle']
         numeracion = request.form['numeracion']
         caso = request.form['caso']
-        cur= myslq.connection.cursor()
+        cur= mysql.connection.cursor()
         cur.execute('''UPDATE enfermos SET nombre = %s, apellido= %s, dni= %s, provincia= %s,
                     departamento= %s, barrio= %s, calle= %s, numeracion= %s, caso= %s WHERE indice= %s''', 
                     (nombre, apellido, dni, provincia, departamento, barrio, 
                     calle, numeracion, caso, indice))
-        myslq.connection.commit()
-        return redirect(url_for(view_sicks))
+        mysql.connection.commit()
+        return redirect(url_for('view_sicks'))
 
 
 #----Eliminar paciente----#
 @app.route('/eliminarPaciente/<indice>')
 def eliminarPaciente(indice):
-    cur= myslq.connection.cursor()
+    cur= mysql.connection.cursor()
     cur.execute('DELETE FROM enfermos WHERE indice = %s', (indice,))
-    myslq.connection.commit()
-    return redirect(url_for(view_sicks))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('view_sicks'))
 
 
 #----Agregar enfermo----#
@@ -95,13 +90,13 @@ def add_sick():
         numeracion = request.form['numeracion']
         caso = request.form['caso']
         
-        cur = myslq.connection.cursor()
+        cur = mysql.connection.cursor()
         cur.execute('''INSERT INTO enfermos (nombre, apellido, dni, provincia, 
         departamento, barrio, calle, numeracion, caso) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
         (nombre,apellido,dni,provincia,departamento,barrio,calle,numeracion,caso))
         
-        myslq.connection.commit()
-        return redirect(url_for(view_sicks))
+        mysql.connection.commit()
+        return redirect(url_for('view_sicks'))
 
 @app.route("/add_contact",methods= ["GET", "POST"])
 def add_contact():
@@ -112,24 +107,26 @@ def add_contact():
         contraseña= request.form["contraseña"]
         email= request.form["email"]
 
-        cur = myslq.connection.cursor()
+        cur = mysql.connection.cursor()
         cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contraseña ,email)VALUES(%s,%s,%s,%s,%s)",
         (nombre, apellido, dni, contraseña, email))
-        myslq.connection.commit()
+        mysql.connection.commit()
     return redirect(url_for("register"))
 
 
 #----Grafico----#
 @app.route('/grafico')
 def grafico():
-    cur = myslq.connection.cursor()
+    cur = mysql.connection.cursor()
     cur.execute('SELECT caso, COUNT(*) FROM enfermos GROUP BY caso')
     data = cur.fetchall()
+    #imprimir los datos de la bd
     print(data)
-    labels = [row[0] for row in data]
-    values = [row[1] for row in data]
     
-    return render_template('graph.html', labels=labels,  values = values )
+    labels = [row['caso'] for row in data]
+    values = [row['COUNT(*)'] for row in data]
+    
+    return render_template('graph.html', labels=labels, values=values)
 
 
 if __name__ == '__main__':
