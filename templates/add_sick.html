@@ -3,32 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>añadir enfermo</title>
+    <title>Añadir Enfermo</title>
     <link rel="stylesheet" href="../static/css/stylesheet_add_sick.css">
 </head>
 <body>
-    <div>
-        <form action="/add_sick" method="post" >
-            <table>
-                
-                <tr><td><input type="text" placeholder="Nombre" name="nombre" required></td></tr>
-                <tr><td><input type="text" placeholder="Apellido" name="apellido" required></td></tr>
-                <tr><td><input type="text" placeholder="DNI" name="dni" required></td></tr>
-                
-                <tr><td><input type="text" placeholder="Provincia" name="provincia" required></td>
-                <td><input type="text" placeholder="Departamento" name="departamento" required></td></tr>
-                
-                <tr><td><input type="text" placeholder="Barrio" name="barrio" required></td></tr>
-                
-                <tr><td><input type="text" placeholder="Calle" name="calle" required></td>
-                <td><input type="int" placeholder="N°" name="numeracion" required></td></tr>
-                <tr><td><select name="caso">
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    </select></td></tr>
-            </table>
-            <button type="submit"> añadir</button>
+    <div class="container">
+        <div class="title">Añadir Enfermo</div>
+
+        <form action="/add_sick" method="post">
+            <div class="form-group">
+                <input type="text" placeholder="Nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Apellido" name="apellido" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="DNI" name="dni" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Provincia" name="provincia" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Departamento" name="departamento" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Barrio" name="barrio" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Calle" name="calle" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="N°" name="numeracion" required>
+            </div>
+            <div class="form-group">
+                <select name="caso" required>
+                    <option value="" disabled selected>Seleccione el caso</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-primary">Añadir</button>
         </form>
     </div>
 </body>
