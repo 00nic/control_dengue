@@ -10,35 +10,35 @@
         <form action="/actualizarDatos/{{ datos['indice']}}" method="POST">
             <div>
                 <label>Nombre:</label>
-                <input type="text" name="nombre" value="{{ datos['nombre'] }}">
+                <input type="text" name="nombre" value="{{ datos['nombre'] }}" required>
             </div>
             <div>
                 <label>Apellido:</label>
-                <input type="text" name="apellido" value="{{ datos['apellido'] }}">
+                <input type="text" name="apellido" value="{{ datos['apellido'] }}" required>
             </div>
             <div>
                 <label>DNI:</label>
-                <input type="text" name="dni" value="{{ datos['dni'] }}">
+                <input type="text" name="dni" value="{{ datos['dni'] }}" required>
             </div>
             <div>
                 <label>Provincia:</label>
-                <input type="text" name="provincia" value="{{ datos['provincia'] }}">
+                <input type="text" name="provincia" value="{{ datos['provincia'] }}" required>
             </div>
             <div>
                 <label>Departamento:</label>
-                <input type="text" name="departamento" value="{{ datos['departamento']}}">
+                <input type="text" name="departamento" value="{{ datos['departamento']}}" required>
             </div>
             <div>
                 <label>Barrio:</label>
-                <input type="text" name="barrio" value="{{ datos['barrio'] }}">
+                <input type="text" name="barrio" value="{{ datos['barrio'] }}" required>
             </div>
             <div>
                 <label>Calle:</label>
-                <input type="text" name="calle" value="{{ datos['calle'] }}">
+                <input type="text" name="calle" value="{{ datos['calle'] }}" required>
             </div>
             <div>
                 <label>Numeración:</label>
-                <input type="text" name="numeracion" value="{{ datos['numeracion'] }}">
+                <input type="text" name="numeracion" value="{{ datos['numeracion'] }}" required>
             </div>
             <div>
                 <label>Grupo:</label>
