@@ -4,55 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Pacientes</title>
-    <link rel="stylesheet_login" href="../static/css/stylesheet_list_sicks.css">
-<style>
-    */{
-        color: red;
-    }
-</style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_list_sicks.css') }}">
 </head>
 <body>
-    <h1>Lista de enfermos</h1>
-    <div>
-        <a href="/view_add_sick">Agregar Pacientes</a>
-        <a href="/grafico">Ver Grafíco</a>
+    <div class="container">
+        <div class="title">Lista de Pacientes</div>
+        <div class="menu">
+            <a href="/view_add_sick">Agregar Pacientes</a>
+            <a href="/grafico">Ver Gráfico</a>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Provincia</th>
+                        <th>Departamento</th>
+                        <th>Barrio</th>
+                        <th>Calle</th>
+                        <th>Caso</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paciente in pacientes %}
+                    <tr>
+                        <td>{{ paciente['nombre'] }}</td>
+                        <td>{{ paciente['apellido'] }}</td>
+                        <td>{{ paciente['dni'] }}</td>
+                        <td>{{ paciente['provincia'] }}</td>
+                        <td>{{ paciente['departamento'] }}</td>
+                        <td>{{ paciente['barrio'] }}</td>
+                        <td>{{ paciente['calle'] }} {{ paciente['numeracion']}}</td>
+                        <td>{{ paciente['caso'] }}</td>
+                        <td>
+                            <a href="/editarDatos/{{ paciente['indice']}}">Editar</a>
+                            <a href="/eliminarPaciente/{{ paciente['indice']}}">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>DNI</th>
-                    <th>Provincia</th>
-                    <th>Departamento</th>
-                    <th>Barrio</th>
-                    <th>Calle</th>
-                    <th>Caso</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for paciente in pacientes %}
-                <tr>
-                    <td>{{ paciente['nombre'] }}</td>
-                    <td>{{ paciente['apellido'] }}</td>
-                    <td>{{ paciente['dni'] }}</td>
-                    <td>{{ paciente['provincia'] }}</td>
-                    <td>{{ paciente['departamento'] }}</td>
-                    <td>{{ paciente['barrio'] }}</td>
-                    <td>{{ paciente['calle'] }} {{ paciente['numeracion']}}</td>
-                    <td>{{ paciente['caso'] }}</td>
-                    <td>
-                        <a href="/editarDatos/{{ paciente['indice']}}">Editar</a>
-                        <a href="/eliminarPaciente/{{ paciente['indice']}}">Eliminar</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            
-        </table>
-    </div>
-    
 </body>
 </html>

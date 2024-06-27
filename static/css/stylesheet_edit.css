@@ -1,9 +1,11 @@
-/* estilo para añadir enfermos */
+/* estilo para editar lista */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 
 body {
     font-family: 'Arial', sans-serif;
@@ -13,6 +15,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 
 .container {
     width: 100%;
@@ -24,12 +27,14 @@ body {
     border-radius: 8px;
 }
 
+
 .title {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
+
 
 .form-group {
     margin-bottom: 15px;
@@ -42,6 +47,7 @@ body {
     border-radius: 4px;
     font-size: 16px;
 }
+
 
 button {
     width: 100%;
