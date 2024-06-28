@@ -4,21 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    
     <title>Grafico</title>
+    <style>
+        button a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #5d9cec;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #4a8bda;
+        }
+    </style>
 </head>
 <body>
-
     <div class="chart-container">
-        <h2 class="graph">Esto es un Grafico</h2>
+        <h2 class="graph">Gráfico del dengue</h2>
         <canvas id="myChart"></canvas>
     </div>
-    <script type="application/json" id="labels">{{labels | tojson}}</script>
-    <script type="application/json" id="values">{{values | tojson}}</script>
-
+    
+    <script type="application/json" id="labels">{{ labels | tojson }}</script>
+    <script type="application/json" id="values">{{ values | tojson }}</script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-    
+    <button type="button" class="btn-primary">
+        <a href="/view_sicks">Volver a la lista</a>
+    </button>
 </body>
 </html>
