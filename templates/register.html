@@ -4,30 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="../static/css/stylesheet_reg.css">
 </head>
 <body>
-    <div>
+    <div class="container">
+        <form action="add_contact" method="POST" class="register-form">
+            <div class="title">Registro</div>
 
-        <form action="add_contact" method="POST">
-            <table>
-                <h1 class="title">Registro</h1>
-                <tr><input type="text" name= "nombre" placeholder="Nombre"></tr><br>
-                <tr><input type="text" name= "apellido" placeholder="Apellido"></tr><br>
-                <tr><input type="text" name= "dni" placeholder="DNI"></tr><br>
-                <tr><input type="text" name= "contraseña" placeholder="Contraseña"></tr><br>
-                <tr><input type="text" name= "email" placeholder="Email"></tr>
-
-            
-            </table>
-            <BUtton type="submit" > 
-                Registrarme
-            </BUtton>
-
-            <button type="button">
-            <a href="/">Volver al Login</a>     
+            <div class="form-group">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="apellido" placeholder="Apellido" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="dni" placeholder="DNI" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="contrasenia" placeholder="Contraseña" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <button type="submit" class="btn-primary">Registrarme</button>
+            <button type="button" class="btn-secondary">
+                <a href="/login">Volver al Login</a>
             </button>
         </form>
     </div>
-    
 </body>
 </html>
