@@ -104,12 +104,12 @@ def add_contact():
         nombre= request.form["nombre"]
         apellido= request.form["apellido"]
         dni= request.form["dni"]
-        contraseña= request.form["contraseña"]
+        contrasenia= request.form["contrasenia"]
         email= request.form["email"]
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contraseña ,email)VALUES(%s,%s,%s,%s,%s)",
-        (nombre, apellido, dni, contraseña, email))
+        cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contrasenia ,email)VALUES(%s,%s,%s,%s,%s)",
+        (nombre, apellido, dni, contrasenia, email))
         mysql.connection.commit()
     return redirect(url_for("register"))
 
@@ -128,6 +128,15 @@ def grafico():
     
     return render_template('graph.html', labels=labels, values=values)
 
+#----Login----#
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        contrasenia = request.form.get('contrasenia')
+
+        
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(port = 5000, debug = True)
