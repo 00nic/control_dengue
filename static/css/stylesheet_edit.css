@@ -1,9 +1,11 @@
-/* estilo para login */
+/* estilo para editar lista */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 
 body {
     font-family: 'Arial', sans-serif;
@@ -15,9 +17,10 @@ body {
     height: 100vh;
 }
 
-.login-container {
+
+.container {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin: 20px;
     padding: 20px;
     background: #fff;
@@ -25,32 +28,27 @@ body {
     border-radius: 8px;
 }
 
-.h2 {
+
+.title {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+
+.form-group {
+    margin-bottom: 15px;
 }
 
-label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="email"],
-input[type="contrasenia"] {
+.form-group input, .form-group select {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
 }
+
 
 button {
     width: 100%;
@@ -60,11 +58,27 @@ button {
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #5d9cec;
-    color: #fff;
-    transition: background-color 0.3s ease;
 }
 
-button:hover {
+button a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #5d9cec;
+    color: #fff;
+}
+
+.btn-primary:hover {
     background-color: #4a8bda;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
 }

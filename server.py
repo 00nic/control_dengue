@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 import os
@@ -10,6 +10,7 @@ app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+app.config['SECRET_KEY'] = '4848'
 
 
 mysql= MySQL(app)
@@ -18,11 +19,22 @@ mysql= MySQL(app)
 @app.route('/')
 def inicio():
     return render_template ('index.html')
+#----VISTA LOGIN----#
+@app.route ('/view_login')
+def view_login():
+    return render_template('login.html')
 
+#----VISTA REGISTRO----#
+@app.route("/registro")
+def register():
+    return render_template("register.html") 
+
+#----VISTA AÑADIR ENFERMO---#
 @app.route('/view_add_sick')
 def view_add_sick():
     return render_template ('add_sick.html')
 
+#----VISTA LISTA DE ENFERMOS----#
 @app.route('/view_sicks')
 def view_sicks():
     cur = mysql.connection.cursor()
@@ -31,9 +43,20 @@ def view_sicks():
     print(data)
     return render_template('list_sicks.html', pacientes = data)
 
-@app.route("/registro")
-def register():
-    return render_template("register.html") 
+#----FUNCION DE LOGIN----#
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST' and 'email' in request.form and 'contrasenia' in request.form:
+        email = request.form['email']
+        contrasenia = request.form['contrasenia']
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM usuarios WHERE email = %s and contrasenia = %s', (email, contrasenia,))
+        account = cur.fetchone()
+        if account:
+            return redirect(url_for('view_sicks'))
+        else:
+            return 'inicio fallido'
+    return render_template('login.html')
 
 
 #----Actualizar datos de paciente----#
