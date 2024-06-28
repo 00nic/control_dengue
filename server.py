@@ -131,5 +131,20 @@ def grafico():
     return render_template('graph.html', labels=labels, values=values)
 
 
+#----Login----#
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if authenticate(email, password):
+            flash("Inicio de sesión exitoso", "success")
+            return redirect(url_for('view_add_sick'))
+        else:
+            flash("Usuario o contraseña incorrectos", "error")
+    
+    return render_template('login.html')
+
 if __name__ == '__main__':
     app.run(port = 5000, debug = True)
