@@ -1,4 +1,5 @@
 /* estilo para lista enfermos */
+/* estilo para lista enfermos */
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +7,7 @@
 }
 
 body {
+    margin-top: 5%;
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;

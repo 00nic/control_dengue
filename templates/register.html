@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_reg.css') }}">
+    
 </head>
 <body>
     <div class="container">
@@ -21,13 +22,15 @@
                 <input type="text" name="dni" placeholder="DNI" required>
             </div>
             <div class="form-group">
-                <input type="password" name="contraseña" placeholder="Contraseña" required>
+                <input type="password" name="contrasenia" placeholder="Contraseña" required>
             </div>
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email" required>
             </div>
             <button type="submit" class="btn-primary">Registrarme</button>
-            <button type="button" class="btn-secondary" onclick="window.location.href='/login'">Volver al Login</button>
+            <button type="button" class="btn-secondary">
+                <a href="/login">Volver al Login</a>
+            </button>
         </form>
     </div>
 </body>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Enfermo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_add_sick.css') }}">
+
 </head>
 <body>
     <div class="container">
@@ -44,8 +45,10 @@
                 </select>
             </div>
             <button type="submit" class="btn-primary">Añadir</button>
-            <button type="button" class="btn-secondary" onclick="window.location.href='/view_sicks'">Volver</button>
         </form>
+        <button class="btn-primary">
+        <a href="/view_sicks">Volver a la lista</a>
+        </button>
     </div>
 </body>
 </html>
