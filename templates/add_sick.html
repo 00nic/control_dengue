@@ -4,40 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Enfermo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_add_sick.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_general.css') }}">
 
 </head>
 <body>
     <div class="container">
-        <div class="title">Añadir Enfermo</div>
-
-        <form action="/add_sick" method="post">
+        <div class="title">Añadir Paciente</div>
+        <form action="/add_sick" method="POST">
             <div class="form-group">
-                <input type="text" placeholder="Nombre" name="nombre" required>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Apellido" name="apellido" required>
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="DNI" name="dni" required>
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Provincia" name="provincia" required>
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Departamento" name="departamento" required>
+                <label for="departamemnto">Departamento</label>
+                <input type="text" id="departamemnto" name="departamento" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Barrio" name="barrio" required>
+                <label for="barrio">Barrio:</label>
+                <input type="text" id="barrio" name="barrio" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="Calle" name="calle" required>
+                <label for="calle">Calle</label>
+                <input type="text" id="calle" name="calle" required>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="N°" name="numeracion" required>
+                <label for="numeracion">N°</label>
+                <input type="number" id="numeracion" name="numeracion" required>
             </div>
             <div class="form-group">
-                <select name="caso" required>
+                <label for="caso">Caso:</label>
+                <select id="caso" name="caso" required>
                     <option value="" disabled selected>Seleccione el caso</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -46,8 +54,8 @@
             </div>
             <button type="submit" class="btn-primary">Añadir</button>
         </form>
-        <button class="btn-primary">
-        <a href="/view_sicks">Volver a la lista</a>
+        <button type="button" class="btn-secondary">
+            <a href="/view_sicks">Volver a la lista</a>
         </button>
     </div>
 </body>

@@ -2,11 +2,9 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 import os
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 
 app = Flask (__name__, static_url_path='/static ')
 load_dotenv()
-
 app.config['MYSQL_DB'] = os.getenv('MYSQL_DB')
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
@@ -21,17 +19,17 @@ mysql= MySQL(app)
 @app.route('/')
 def inicio():
     return render_template ('index.html')
-#----VISTA LOGIN----#
+#----VISTA LOGIN----# NO DEJAR ENTRAR DESDE EL URL.... IMPORT FUNC
 @app.route ('/view_login')
 def view_login():
     return render_template('login.html')
 
-#----VISTA REGISTRO----#
+#----VISTA REGISTRO----# AGREGAR BOTON REGISTRO ENN LOGIN, BASE DE DATOS CON MAS DATO PERO LOGIN SOLO GMAILY CONTRA
 @app.route("/registro")
 def register():
     return render_template("register.html") 
 
-#----VISTA AÑADIR ENFERMO---#
+#----VISTA AÑADIR ENFERMO---# MANEJO DE ERRORES  CUANDO HAY REPETICION
 @app.route('/view_add_sick')
 def view_add_sick():
     return render_template ('add_sick.html')
@@ -139,7 +137,7 @@ def add_contact():
     return redirect(url_for("register"))
 
 
-#----Grafico----#
+#----Grafico----# AGREGAR GRAFICOS POR EDAD SEXO ETC
 @app.route('/grafico')
 def grafico():
     cur = mysql.connection.cursor()
@@ -153,21 +151,6 @@ def grafico():
     
     return render_template('graph.html', labels=labels, values=values)
 
-
-#----Login----#
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        
-        if authenticate(email, password):
-            flash("Inicio de sesión exitoso", "success")
-            return redirect(url_for('view_add_sick'))
-        else:
-            flash("Usuario o contraseña incorrectos", "error")
-    
-    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(port = 5000, debug = True)

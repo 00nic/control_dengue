@@ -3,59 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar Datos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_edit.css') }}">
-
+    <title>Editar datos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_general.css') }}">
 </head>
 <body>
-    <div>
+    <div class="container">
+        <div class="title">Editar datos</div>
         <form action="/actualizarDatos/{{datos['indice']}}" method="POST">
             <div class="form-group">
-                <label>Nombre:</label>
-                <input type="text" name="nombre" value="{{datos['nombre']}}">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{datos['nombre']}}">
             </div>
             <div class="form-group">
-                <label>Apellido:</label>
-                <input type="text" name="apellido" value="{{datos['apellido']}}">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" value="{{datos['apellido']}}">
             </div>
             <div class="form-group">
-                <label>DNI:</label>
-                <input type="text" name="dni" value="{{datos['dni']}}">
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" value="{{datos['dni']}}">
             </div>
             <div class="form-group">
-                <label>Provincia:</label>
-                <input type="text" name="provincia" value="{{datos['provinvia']}}">
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia" value="{{datos['provincia']}}">
             </div>
             <div class="form-group">
-                <label>Departamento:</label>
-                <input type="text" name="departamento" value="{{datos['departamento']}}">
+                <label for="departamemnto">Departamento:</label>
+                <input type="text" id="departamemnto" name="departamento" value="{{datos['departamento']}}">
             </div>
             <div class="form-group">
-                <label>Barrio:</label>
-                <input type="text" name="barrio" value="{{datos['barrio']}}">
+                <label for="barrio">Barrio:</label>
+                <input type="text" id="barrio" name="barrio" value="{{datos['barrio']}}">
             </div>
             <div class="form-group">
-                <label>Calle:</label>
-                <input type="text" name="calle" value="{{datos['calle']}}">
+                <label for="calle">Calle:</label>
+                <input type="text" id="calle" name="calle" value="{{datos['calle']}}">
             </div>
             <div class="form-group">
-                <label>Numeración:</label>
-                <input type="text" name="numeracion" value="{{datos['numeracion']}}">
+                <label for="numeracion">Numeración:</label>
+                <input type="number" id="numeracion" name="numeracion" value="{{datos['numeracion']}}">
             </div>
             <div class="form-group">
-                <label>Grupo:</label>
-                <select name="caso">
+                <label for="caso">Grupo:</label>
+                <select id="caso" name="caso">
                     <option value="A" {% if datos[caso] == 'A' %}selected{% endif %}>A</option>
                     <option value="B" {% if datos[caso] == 'B' %}selected{% endif %}>B</option>
                     <option value="C" {% if datos[caso] == 'C' %}selected{% endif %}>C</option>
                 </select>
             </div>
-            <div class="menu">
-                <button type="submit" class="btn-primary">Actualizar</button>
-                <button type="button" class="btn-secondary">
-                <a href="/view_sicks">Volver</a>
-            </div> 
+            <button type="submit" class="btn-primary">Actualizar</button>
+            <button type="reset" class="btn-secondary">Restablecer</button>
         </form>
+        <button type="button" class="btn-secondary">
+            <a href="/view_sicks">Volver a la lista</a>
+        </button>
     </div>
 </body>
 </html>
