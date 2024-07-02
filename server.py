@@ -46,6 +46,7 @@ def view_sicks():
 #----FUNCION DE LOGIN----#
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    error= None
     if request.method == 'POST' and 'email' in request.form and 'contrasenia' in request.form:
         email = request.form['email']
         contrasenia = request.form['contrasenia']
@@ -55,8 +56,36 @@ def login():
         if account:
             return redirect(url_for('view_sicks'))
         else:
-            return 'inicio fallido'
+            error = 'Email o contraseña incorrectos. Por favor, intenta nuevamente.'
+            return render_template('login.html', error=error)
     return render_template('login.html')
+
+
+#----FUCIÓN REGISTRO----#
+@app.route("/add_contact",methods= ["GET", "POST"])
+def add_contact():
+    error= None
+    if request.method =="POST":
+        nombre= request.form["nombre"]
+        apellido= request.form["apellido"]
+        dni= request.form["dni"]
+        contrasenia= request.form["contrasenia"]
+        email= request.form["email"]
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        email_existente= cur.fetchone()
+        cur.close()
+
+        if email_existente:
+            error = 'El email ya está en uso. Por favor, utiliza otro.'
+            return render_template('register.html', error=error)
+        else:
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contrasenia ,email)VALUES(%s,%s,%s,%s,%s)",
+                        (nombre, apellido, dni, contrasenia, email))
+            mysql.connection.commit()
+            return redirect(url_for("view_sicks"))
 
 
 #----Actualizar datos de paciente----#
@@ -120,21 +149,6 @@ def add_sick():
         
         mysql.connection.commit()
         return redirect(url_for('view_sicks'))
-
-@app.route("/add_contact",methods= ["GET", "POST"])
-def add_contact():
-    if request.method =="POST":
-        nombre= request.form["nombre"]
-        apellido= request.form["apellido"]
-        dni= request.form["dni"]
-        contraseña= request.form["contraseña"]
-        email= request.form["email"]
-
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contraseña ,email)VALUES(%s,%s,%s,%s,%s)",
-        (nombre, apellido, dni, contraseña, email))
-        mysql.connection.commit()
-    return redirect(url_for("register"))
 
 
 #----Grafico----# AGREGAR GRAFICOS POR EDAD SEXO ETC
