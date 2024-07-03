@@ -14,7 +14,7 @@
             <p style="color: red;">{{ error }}</p>
             {% endif %}
         </div>
-        <form action="add_contact" method="POST">
+        <form action="func_registro" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre "name="nombre" required>
@@ -35,10 +35,10 @@
                 <label for="conttrasenia">Contraseña:</label>
                 <input type="password" id="contrasenia" name="contrasenia" required>
             </div>
-            <button type="submit" class="btn-primary">Registrarme</button>
+            <button type="submit" class="btn-primary">Ingresar</button>
         </form>
         <button type="button" class="btn-secondary">
-            <a href="/login">Volver al Login</a>
+            <a href="/iniciarSesion">Volver</a>
         </button>
     </div>
 </body>

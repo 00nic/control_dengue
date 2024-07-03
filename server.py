@@ -15,37 +15,60 @@ app.config['SECRET_KEY'] = '4848'
 
 mysql= MySQL(app)
 
-#----VISTAS----#
+#----VISTA PÁGINA PRINCIPAL----#
 @app.route('/')
-def inicio():
-    return render_template ('index.html')
-#----VISTA LOGIN----# NO DEJAR ENTRAR DESDE EL URL.... IMPORT FUNC
-@app.route ('/view_login')
-def view_login():
-    return render_template('login.html')
+def pagPrincipal():
+    return render_template ('pagPrincipal.html')
 
-#----VISTA REGISTRO----# AGREGAR BOTON REGISTRO ENN LOGIN, BASE DE DATOS CON MAS DATO PERO LOGIN SOLO GMAILY CONTRA
+#----VISTA INICIAR SESIÓN----# NO DEJAR ENTRAR DESDE EL URL.... IMPORT FUNC
+@app.route ('/iniciarSesion')
+def iniciarSesion():
+    return render_template('iniciarSesion.html')
+
+#----VISTA REGISTRO----#
 @app.route("/registro")
-def register():
-    return render_template("register.html") 
+def registro():
+    return render_template("registro.html") 
 
-#----VISTA AÑADIR ENFERMO---# MANEJO DE ERRORES  CUANDO HAY REPETICION
-@app.route('/view_add_sick')
-def view_add_sick():
-    return render_template ('add_sick.html')
-
-#----VISTA LISTA DE ENFERMOS----#
-@app.route('/view_sicks')
-def view_sicks():
+#----VISTA LISTA DE PACIENTES----#
+@app.route('/listaPacientes')
+def listaPacientes():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM enfermos')
+    cur.execute('SELECT * FROM pacientes')
     data = cur.fetchall()
-    print(data)
-    return render_template('list_sicks.html', pacientes = data)
+    cur.close()
+    return render_template('listaPacientes.html', pacientes = data)
 
-#----FUNCION DE LOGIN----#
-@app.route('/login', methods=['POST', 'GET'])
-def login():
+#----VISTA EDITAR DATOS PACIENTE---#
+@app.route('/editarDatos/<indice>')
+def editarDatos(indice):
+    cur= mysql.connection.cursor()
+    cur.execute('SELECT * FROM pacientes WHERE indice = %s', (indice,))
+    data= cur.fetchone()
+    cur.close()
+    return render_template('editarDatos.html', datos = data)
+
+#----VISTA AÑADIR PACIENTE---# MANEJO DE ERRORES  CUANDO HAY REPETICION
+@app.route('/añadirPaciente')
+def añadirPaciente():
+    return render_template ('añadirPaciente.html')
+
+#----VISTA GRÁFICO----# AGREGAR GRAFICOS POR EDAD SEXO ETC
+@app.route('/grafico')
+def grafico():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT caso, COUNT(*) FROM pacientes GROUP BY caso')
+    data = cur.fetchall()
+    cur.close()
+    
+    labels = [row['caso'] for row in data]
+    values = [row['COUNT(*)'] for row in data]
+    
+    return render_template('grafico.html', labels=labels, values=values)
+
+#----FUNCION INICIAR SESIÓN----#
+@app.route('/func_iniciarSesion', methods=['POST', 'GET'])
+def func_iniciarSesion():
     error= None
     if request.method == 'POST' and 'email' in request.form and 'contrasenia' in request.form:
         email = request.form['email']
@@ -53,17 +76,16 @@ def login():
         cur = mysql.connection.cursor()
         cur.execute('SELECT * FROM usuarios WHERE email = %s and contrasenia = %s', (email, contrasenia,))
         account = cur.fetchone()
+        cur.close()
         if account:
-            return redirect(url_for('view_sicks'))
+            return redirect(url_for('listaPacientes'))
         else:
             error = 'Email o contraseña incorrectos. Por favor, intenta nuevamente.'
-            return render_template('login.html', error=error)
-    return render_template('login.html')
-
+            return render_template('iniciarSesion.html', error=error)
 
 #----FUCIÓN REGISTRO----#
-@app.route("/add_contact",methods= ["GET", "POST"])
-def add_contact():
+@app.route("/func_registro",methods= ["GET", "POST"])
+def func_registro():
     error= None
     if request.method =="POST":
         nombre= request.form["nombre"]
@@ -79,26 +101,18 @@ def add_contact():
 
         if email_existente:
             error = 'El email ya está en uso. Por favor, utiliza otro.'
-            return render_template('register.html', error=error)
+            return render_template('registro.html', error=error)
         else:
             cur = mysql.connection.cursor()
             cur.execute("INSERT INTO usuarios (nombre, apellido, dni, contrasenia ,email)VALUES(%s,%s,%s,%s,%s)",
                         (nombre, apellido, dni, contrasenia, email))
             mysql.connection.commit()
-            return redirect(url_for("view_sicks"))
+            cur.close()
+            return redirect(url_for("listaPacientes"))
 
-
-#----Actualizar datos de paciente----#
-@app.route('/editarDatos/<indice>')
-def editarDatos(indice):
-    cur= mysql.connection.cursor()
-    cur.execute('SELECT * FROM enfermos WHERE indice = %s', (indice,))
-    data= cur.fetchall()
-    cur.close()
-    return render_template('editarDatos.html', datos = data[0])
-
-@app.route('/actualizarDatos/<indice>', methods=['POST'])
-def actualizarLista(indice):
+#----FUCIÓN EDITAR DATOS PACIENTE----#
+@app.route('/func_editarDatos/<indice>', methods=['POST'])
+def func_editarDatos(indice):
     if request.method == 'POST':
         nombre = request.form['nombre']
         apellido = request.form['apellido']
@@ -110,27 +124,17 @@ def actualizarLista(indice):
         numeracion = request.form['numeracion']
         caso = request.form['caso']
         cur= mysql.connection.cursor()
-        cur.execute('''UPDATE enfermos SET nombre = %s, apellido= %s, dni= %s, provincia= %s,
+        cur.execute('''UPDATE pacientes SET nombre = %s, apellido= %s, dni= %s, provincia= %s,
                     departamento= %s, barrio= %s, calle= %s, numeracion= %s, caso= %s WHERE indice= %s''', 
                     (nombre, apellido, dni, provincia, departamento, barrio, 
                     calle, numeracion, caso, indice))
         mysql.connection.commit()
-        return redirect(url_for('view_sicks'))
+        cur.close()
+        return redirect(url_for('listaPacientes'))
 
-
-#----Eliminar paciente----#
-@app.route('/eliminarPaciente/<indice>')
-def eliminarPaciente(indice):
-    cur= mysql.connection.cursor()
-    cur.execute('DELETE FROM enfermos WHERE indice = %s', (indice,))
-    mysql.connection.commit()
-    cur.close()
-    return redirect(url_for('view_sicks'))
-
-
-#----Agregar enfermo----#
-@app.route('/add_sick', methods=['POST'])
-def add_sick():
+#----FUNCIÓN AÑADIR PACIENTE----#
+@app.route('/func_añadirPaciente', methods=['POST'])
+def func_añadirPaciente():
     if request.method == 'POST':
         nombre = request.form['nombre']
         apellido = request.form['apellido']
@@ -143,28 +147,22 @@ def add_sick():
         caso = request.form['caso']
         
         cur = mysql.connection.cursor()
-        cur.execute('''INSERT INTO enfermos (nombre, apellido, dni, provincia, 
+        cur.execute('''INSERT INTO pacientes (nombre, apellido, dni, provincia, 
         departamento, barrio, calle, numeracion, caso) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
         (nombre,apellido,dni,provincia,departamento,barrio,calle,numeracion,caso))
         
         mysql.connection.commit()
-        return redirect(url_for('view_sicks'))
+        cur.close()
+        return redirect(url_for('listaPacientes'))
 
-
-#----Grafico----# AGREGAR GRAFICOS POR EDAD SEXO ETC
-@app.route('/grafico')
-def grafico():
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT caso, COUNT(*) FROM enfermos GROUP BY caso')
-    data = cur.fetchall()
-    #imprimir los datos de la bd
-    print(data)
-    
-    labels = [row['caso'] for row in data]
-    values = [row['COUNT(*)'] for row in data]
-    
-    return render_template('graph.html', labels=labels, values=values)
-
+#----FUNCIÓN ELIMINAR PACIENTE----#
+@app.route('/eliminarPaciente/<indice>')
+def eliminarPaciente(indice):
+    cur= mysql.connection.cursor()
+    cur.execute('DELETE FROM pacientes WHERE indice = %s', (indice,))
+    mysql.connection.commit()
+    cur.close()
+    return redirect(url_for('listaPacientes'))
 
 if __name__ == '__main__':
     app.run(port = 5000, debug = True)

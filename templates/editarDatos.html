@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="title">Editar datos</div>
-        <form action="/actualizarDatos/{{datos['indice']}}" method="POST">
+        <form action="/func_editarDatos/{{datos['indice']}}" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="{{datos['nombre']}}">
@@ -54,7 +54,7 @@
             <button type="reset" class="btn-secondary">Restablecer</button>
         </form>
         <button type="button" class="btn-secondary">
-            <a href="/view_sicks">Volver a la lista</a>
+            <a href="/listaPacientes">Volver</a>
         </button>
     </div>
 </body>
