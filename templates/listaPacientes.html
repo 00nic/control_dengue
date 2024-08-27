@@ -4,17 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Pacientes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_list_sicks.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/graficos.css') }}">
 
 </head>
 <body>
     <div class="container">
-        <div class="title">Lista de Pacientes</div>
-        <div class="menu">
-            <a href="/añadirPaciente">Agregar Pacientes</a>
-            <a href="/grafico">Ver Gráfico</a>
-            <a href="/">Logout</a>
-
+        <div class="header">
+            <div class="title">Lista de Pacientes</div>
+            <div class="flash">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div class="menu">
+                <a href="/añadirPaciente">Agregar Paciente</a>
+                <a href="/grafico">Ver Gráficos</a>
+                <a href="/cerrarSesion">Cerrar Sesión</a>
+            </div>
         </div>
         <div class="table-container">
             <table>
@@ -23,10 +35,11 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>Teléfono</th>
                         <th>Provincia</th>
                         <th>Departamento</th>
-                        <th>Barrio</th>
-                        <th>Calle</th>
                         <th>Caso</th>
                         <th>Acción</th>
                     </tr>
@@ -37,10 +50,11 @@
                         <td>{{ paciente['nombre'] }}</td>
                         <td>{{ paciente['apellido'] }}</td>
                         <td>{{ paciente['dni'] }}</td>
+                        <td>{{ paciente['edad'] }}</td>
+                        <td>{{ paciente['sexo'] }}</td>
+                        <td>{{ paciente['telefono'] }}</td>
                         <td>{{ paciente['provincia'] }}</td>
                         <td>{{ paciente['departamento'] }}</td>
-                        <td>{{ paciente['barrio'] }}</td>
-                        <td>{{ paciente['calle'] }} {{ paciente['numeracion']}}</td>
                         <td>{{ paciente['caso'] }}</td>
                         <td>
                             <a href="/editarDatos/{{ paciente['indice']}}">Editar</a>
