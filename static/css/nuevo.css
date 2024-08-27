@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    position: relative;
+}
+
+.header .title {
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.header .flash {
+    clear: both; /* Asegura que el mensaje flash se coloque debajo de los elementos flotantes */
+    margin-top: 60px; /* Ajusta el margen superior para que el mensaje flash esté debajo del título y menú */
+    width: calc(100% - 40px); /* Asegura que el mensaje flash ocupe todo el ancho disponible, menos el padding horizontal */
+    padding: 0 20px;
+
+}
+
+.header .flash .succes{
+    color: green;
+}
+
+.header .flash .error{
+    color: red;
+}
+
+.header .flash ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header .flash li {
+    background: #fff;
+    color: #333;
+    padding: 7px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.header .menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.header .menu a {
+    color: white;
+    text-decoration: none;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.header .menu a:hover {
+    background-color: #555;
+}
+
+.graficos {
+    padding: 20px;
+}
+
+.graficos-fila {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.graficos-item {
+    flex: 1;
+    margin: 0 10px;
+    position: relative;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important; 
+}
