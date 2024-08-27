@@ -3,12 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_general.css') }}">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nuevo.css') }}">
+    <script src="https://kit.fontawesome.com/14407b877c.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <div class="title">Iniciar Sesión</div>
+        <div class="header">
+            <div class="title">Inicio de Sesión</div>
+            <div class="flash">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div class="menu">
+                <a href="/">Cancelar</a>
+            </div>
+        </div>
         <div class="form-group">
             {% if error %}
             <p style="color: red;">{{ error }}</p>
@@ -16,21 +33,15 @@
         </div>
         <form action="/func_iniciarSesion" method="POST">
             <div class="form-group">
-                <label for="email">Correo Electrónico:</label>
+                <label for="email"><i class="fa-solid fa-envelope"></i>Email:</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="contrasenia">Contraseña:</label>
+                <label for="contrasenia"><i class="fa-solid fa-lock"></i>Contraseña:</label>
                 <input type="password" id="contrasenia"  name="contrasenia" required>
             </div>
             <button type="submit" class="btn-primary">Ingresar</button>
         </form>
-        <button type="button" class="btn-secondary">
-            <a href="/registro">Registrarme</a>
-        </button>
-        <button type="button" class="btn-secondary">
-            <a href="/">Cancelar</a>
-        </button>
     </div>
 </body>
 </html>
