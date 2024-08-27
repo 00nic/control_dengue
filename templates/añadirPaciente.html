@@ -4,49 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir Enfermo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet_general.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nuevo.css') }}">
+    <script src="https://kit.fontawesome.com/14407b877c.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <div class="title">Añadir Paciente</div>
+        <div class="header">
+            <div class="title">Añadir Paciente</div>
+            <div class="flash">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div class="menu">
+                <a href="/listaPacientes">Volver</a>
+            </div>
+        </div>
         <form action="/func_añadirPaciente" method="POST">
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
+                <label for="nombre"><i class="fa-solid fa-user"></i>Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
             </div>
             <div class="form-group">
-                <label for="apellido">Apellido:</label>
+                <label for="apellido"><i class="fa-regular fa-user"></i>Apellido:</label>
                 <input type="text" id="apellido" name="apellido" required>
             </div>
             <div class="form-group">
-                <label for="dni">DNI:</label>
+                <label for="dni"><i class="fa-solid fa-address-card"></i>DNI:</label>
                 <input type="text" id="dni" name="dni" required>
             </div>
             <div class="form-group">
-                <label for="provincia">Provincia:</label>
-                <input type="text" id="provincia" name="provincia" required>
+                <label for="edad"><i class="fa-solid fa-calendar"></i>Edad:</label>
+                <input type="number" id="edad" name="edad" required>
             </div>
             <div class="form-group">
-                <label for="departamemnto">Departamento</label>
-                <input type="text" id="departamemnto" name="departamento" required>
+                <label for="sexo"><i class="fa-solid fa-venus-mars"></i>Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="barrio">Barrio:</label>
-                <input type="text" id="barrio" name="barrio" required>
+                <label for="telefono"><i class="fa-solid fa-mobile"></i>Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
             </div>
             <div class="form-group">
-                <label for="calle">Calle</label>
-                <input type="text" id="calle" name="calle" required>
+                <label for="provincia"><i class="fa-solid fa-location-pin"></i>Provincia:</label>
+                <input type="text" id="provincia" name="provincia" value="Mendoza" readonly>
             </div>
             <div class="form-group">
-                <label for="numeracion">N°</label>
-                <input type="number" id="numeracion" name="numeracion" required>
+                <label for="departamemnto"><i class="fa-solid fa-location-dot"></i>Departamento:</label>
+                <select id="departamento" name="departamento" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="Capital">Capital</option>
+                    <option value="General Alvear">General Alvear</option>
+                    <option value="Godoy Cruz">Godoy Cruz</option>
+                    <option value="Guaymallén">Guaymallén</option>
+                    <option value="Junín">Junín</option>
+                    <option value="La Paz">La Paz</option>
+                    <option value="Las Heras">Las Heras</option>
+                    <option value="Lavalle">Lavalle</option>
+                    <option value="Luján de Cuyo">Luján de Cuyo</option>
+                    <option value="Maipú">Maipú</option>
+                    <option value="Malargüe">Malargüe</option>
+                    <option value="Rivadavia">Rivadavia</option>
+                    <option value="San Carlos">San Carlos</option>
+                    <option value="San Martín">San Martín</option>
+                    <option value="San Rafael">San Rafael</option>
+                    <option value="Santa Rosa">Santa Rosa</option>
+                    <option value="Tunuyán">Tunuyán</option>
+                    <option value="Tupungato">Tupungato</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="caso">Caso:</label>
+                <label for="caso"><i class="fa-solid fa-list"></i>Grupo:</label>
                 <select id="caso" name="caso" required>
-                    <option value="" disabled selected>Seleccione el caso</option>
+                    <option value="" disabled selected>Seleccione una opción</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
@@ -54,9 +95,6 @@
             </div>
             <button type="submit" class="btn-primary">Añadir</button>
         </form>
-        <button type="button" class="btn-secondary">
-            <a href="/listaPacientes">Volver</a>
-        </button>
     </div>
 </body>
 </html>
